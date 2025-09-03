@@ -1,0 +1,24 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background: #343a40;
+    color: white;
+  }
+  
+  .sidebar {
+    width: 200px;
+    background-color: #f8f9fa;
+    padding: 15px;
+    height: 100vh;
+  }
+  
+  .content {
+    padding: 20px;
+    flex-grow: 1;
+  }
+  
+  .main-container {
+    display: flex;
+  }
+  

@@ -1,0 +1,84 @@
+<div class="project-form-container">
+    <h2>{{ mode }} Project</h2>
+
+    <form [formGroup]="EditprojectForm" (ngSubmit)="onSubmit()" *ngIf="EditprojectForm">
+
+        <div class="form-group mb-3">
+            <label for="name">Project Name <span class="text-danger">*</span></label>
+            <input id="name" formControlName="name" type="text" class="form-control" [readonly]="mode === 'View'" />
+            <div *ngIf="EditprojectForm.get('name')?.touched && EditprojectForm.get('name')?.invalid"
+                class="text-danger">
+                Project Name is required.
+            </div>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="description">Description <span class="text-danger">*</span></label>
+            <textarea id="description" formControlName="description" class="form-control"
+                [readonly]="mode === 'View'"></textarea>
+            <div *ngIf="EditprojectForm.get('description')?.touched && EditprojectForm.get('description')?.invalid"
+                class="text-danger">
+                Description is required.
+            </div>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="startDate">Start Date <span class="text-danger">*</span></label>
+            <input id="startDate" formControlName="startDate" type="date" class="form-control"
+                [readonly]="mode === 'View'" />
+            <div *ngIf="EditprojectForm.get('startDate')?.touched && EditprojectForm.get('startDate')?.invalid"
+                class="text-danger">
+                Start Date is required.
+            </div>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="dueDate">Due Date <span class="text-danger">*</span></label>
+            <input id="dueDate" formControlName="dueDate" type="date" class="form-control"
+                [readonly]="mode === 'View'" />
+            <div *ngIf="EditprojectForm.get('dueDate')?.touched && EditprojectForm.get('dueDate')?.invalid"
+                class="text-danger">
+                Due Date is required.
+            </div>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="status">Status <span class="text-danger">*</span></label>
+            <select id="status" formControlName="status" class="form-control" [disabled]="mode === 'View'">
+                <option value="" disabled>Select Status</option>
+                <option value="open">Open</option>
+                <option value="in-progress">In Progress</option>
+                <option value="closed">Closed</option>
+            </select>
+            <div *ngIf="EditprojectForm.get('status')?.touched && EditprojectForm.get('status')?.invalid"
+                class="text-danger">
+                Status is required.
+            </div>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="teamMember">Team Member <span class="text-danger">*</span></label>
+            <select id="teamMember" formControlName="teamMember" class="form-control" [disabled]="mode === 'View'">
+                <option value="" disabled>Select Team Member</option>
+                <option *ngFor="let member of teamMembers" [value]="member">{{ member }}</option>
+            </select>
+            <div *ngIf="EditprojectForm.get('teamMember')?.touched && EditprojectForm.get('teamMember')?.invalid"
+                class="text-danger">
+                Team Member is required.
+            </div>
+        </div>
+
+        <div class="form-actions mt-3">
+            <button *ngIf="mode === 'Edit'" type="submit" class="btn btn-primary" [disabled]="EditprojectForm.invalid">
+                Save Changes
+            </button>&nbsp;&nbsp;
+            <button type="button" class="btn btn-secondary" (click)="router.navigate(['/projects/projects'])">
+                Cancel
+            </button>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="isLoading" class="loading-spinner mt-3">
+    <p>Loading...</p>
+</div>

@@ -1,0 +1,38 @@
+<div class="task-list-container">
+    <div class="header">
+      <h2>Task List</h2>
+      <button class="add-btn" *ngIf="isAdmin" (click)="addTask()">+ Add Task</button>
+    </div>
+  
+    <table class="table table-striped" *ngIf="tasks.length > 0; else noTasks">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Priority</th>
+          <th>Status</th>
+          <th>Due Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of tasks">
+          <td>{{ task.title }}</td>
+          <td>{{ task.description }}</td>
+          <td>{{ task.priority }}</td>
+          <td>{{ task.status }}</td>
+          <td>{{ task.dueDate | date }}</td>
+          <td>
+            <button class="btn-sm btn btn-info" (click)="viewTask(task.id)">View</button>&nbsp;&nbsp;
+            <button *ngIf="isAdmin" class="btn-sm btn btn-warning" (click)="editTask(task.id)">Edit</button>&nbsp;&nbsp;
+            <button *ngIf="isAdmin" class="btn-sm btn btn-danger" (click)="deleteTask(task.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <ng-template #noTasks>
+      <p>No tasks available.</p>
+    </ng-template>
+  </div>
+  
