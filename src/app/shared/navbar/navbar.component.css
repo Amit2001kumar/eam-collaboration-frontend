@@ -1,0 +1,28 @@
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    border-bottom: 1px solid #e2e8f0;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 10;
+}
+
+.brand {
+    font-weight: 700;
+}
+
+.links {
+    display: flex;
+    gap: 12px;
+}
+
+.links a {
+    text-decoration: none;
+}
+
+button {
+    padding: 6px 10px;
+}

@@ -1,40 +1,40 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from './token.interceptor';
-
-import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AuthService } from './auth/auth.service';
-import { HeaderComponent } from './header/header.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
+import { AppComponent } from './app.component';
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
+import { AuthModule } from './auth/auth.module';
+import { ProjectsModule } from './projects/projects.module';
+import { TasksModule } from './tasks/tasks.module';
+import { ChatModule } from './chat/chat.module';
+import { AssistantModule } from './assistant/assistant.module';
+import { TokenInterceptor } from './core/token.interceptor';
+
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    SidebarComponent,
-
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    AppRoutingModule,
-    RouterModule
+    RouterModule,
+    CoreModule,
+    SharedModule,
+    AuthModule,
+    ProjectsModule,
+    TasksModule,
+    ChatModule,
+    AssistantModule,
+    AppRoutingModule
   ],
-  exports: [HeaderComponent, SidebarComponent],
-  providers: [AuthService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    }
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

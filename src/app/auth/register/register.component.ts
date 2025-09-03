@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import * as e from 'express';
 
 @Component({
   selector: 'app-register',
@@ -10,51 +8,14 @@ import * as e from 'express';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  registerForm: FormGroup;
-  error: string = '';
-  passwordVisible: boolean = false;  // To toggle visibility of password
-  confirmPasswordVisible: boolean = false;  // To toggle visibility of confirm password
+  name=''; email=''; password=''; role='MEMBER'; error='';
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
-    this.registerForm = this.fb.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required]],
-      role: ['', Validators.required]
-    }, {
-      validator: this.passwordMatchValidator  
-    });
-  }
-
-  togglePasswordVisibility() {
-    this.passwordVisible = !this.passwordVisible;
-  }
-
-  toggleConfirmPasswordVisibility() {
-    this.confirmPasswordVisible = !this.confirmPasswordVisible;
-  }
-
-  passwordMatchValidator(form: FormGroup) {
-    const password = form.get('password')?.value;
-    const confirmPassword = form.get('confirmPassword')?.value;
-    return password === confirmPassword ? null : { mismatch: true };
-  }
+  constructor(private auth: AuthService, private router: Router) {}
 
   onSubmit() {
-    if (this.registerForm.valid) {
-      this.authService.register(this.registerForm.value).subscribe({
-        next: (res) => {
-          if (res.success) {
-            this.router.navigate(['/auth/login']);
-          } else {
-            this.error = res.message;
-          }
-        },
-        error: (err) => {
-          this.error = err.error.message || 'Registration failed';
-        }
-      });
-    }
+    this.auth.register(this.name, this.email, this.password, this.role).subscribe({
+      next: () => this.router.navigate(['/login']),
+      error: (err) => this.error = err?.error?.message || 'Register failed'
+    });
   }
 }

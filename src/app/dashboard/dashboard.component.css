@@ -1,0 +1,11 @@
+.links {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+    list-style: none;
+    padding: 0;
+}
+
+.links a {
+    text-decoration: underline;
+}

@@ -1,0 +1,12 @@
+<div class="chat">
+  <div class="messages">
+    <div class="msg" *ngFor="let m of messages">
+      <div class="meta">By {{m.senderId}} • {{m.timestamp | date:'short'}}</div>
+      <div class="bubble">{{m.content}}</div>
+    </div>
+  </div>
+  <div class="compose">
+    <input [(ngModel)]="newMessage" placeholder="Type a message..." />
+    <button (click)="send()">Send</button>
+  </div>
+</div>

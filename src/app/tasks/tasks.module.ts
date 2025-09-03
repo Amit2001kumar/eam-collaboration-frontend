@@ -1,24 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { KanbanComponent } from './kanban/kanban.component';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
-import { TasksRoutingModule } from './tasks-routing.module';
-import { TaskListComponent } from './task-list/task-list.component';
-import { TaskFormComponent } from './task-form/task-form.component';
-import { TaskEditComponent } from './task-edit/task-edit.component';
 
 @NgModule({
-  declarations: [
-    TaskListComponent,
-    TaskFormComponent,
-    TaskEditComponent
-  ],
-  imports: [
-    CommonModule,
-    TasksRoutingModule,
-    RouterModule,
-    ReactiveFormsModule
-  ]
+  declarations: [KanbanComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, DragDropModule],
+  exports: [KanbanComponent]
 })
 export class TasksModule { }

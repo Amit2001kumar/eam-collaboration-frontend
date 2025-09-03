@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { ChatComponent } from './chat.component';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent],
+  declarations: [ChatComponent],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
-  exports: [LoginComponent, RegisterComponent]
+  exports: [ChatComponent]
 })
-export class AuthModule { }
+export class ChatModule { }

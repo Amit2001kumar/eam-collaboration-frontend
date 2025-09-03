@@ -1,0 +1,12 @@
+
+<div class="assistant">
+  <h2>AI Assistant</h2>
+
+  <textarea [(ngModel)]="prompt" placeholder="Ask me anything..."></textarea>
+  <button (click)="ask()" [disabled]="loading">Ask</button>
+
+  <div *ngIf="loading">Thinking...</div>
+  <div *ngIf="answer" class="answer">
+    <strong>Answer:</strong> {{ answer }}
+  </div>
+</div>

@@ -1,0 +1,28 @@
+.auth-card {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+label {
+    display: block;
+    margin-top: 8px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+}
+
+button {
+    margin-top: 12px;
+    padding: 8px 12px;
+}
+
+.error {
+    color: #b91c1c;
+    margin-top: 8px;
+}

@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiBaseUrl: 'https://your-deployed-backend.com/api' // Update this for production deployment
+    apiUrl: 'http://localhost:3000/api'
 };

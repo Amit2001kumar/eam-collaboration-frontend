@@ -1,62 +1,35 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../project.service';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth/auth.service';
-import * as e from 'express';
 
 @Component({
   selector: 'app-project-form',
   templateUrl: './project-form.component.html',
   styleUrls: ['./project-form.component.css']
 })
-export class ProjectFormComponent implements OnInit {
-  projectForm!: FormGroup;
-  isLoading: boolean = false;
-  error: string = '';
-  teamMembers: string[] = ['John Doe', 'Jane Smith', 'Alice Brown'];
+export class ProjectFormComponent {
+  id: string | null = null;
+  name = '';
+  description = '';
+  teamId: any = null;
+  senderId: any = null;
 
-  constructor(
-    private fb: FormBuilder,
-    private projectService: ProjectService,
-    public router: Router,
-    private authService: AuthService
-  ) { }
-
-  ngOnInit(): void {
-    this.projectForm = this.fb.group({
-      name: ['', Validators.required],
-      description: [''],
-      startDate: ['', Validators.required],
-      dueDate: ['', Validators.required],
-      status: ['open', Validators.required],
-      teamMember: ['', Validators.required]
-    });
+  constructor(private route: ActivatedRoute, private router: Router, private projectSvc: ProjectService) {
+    this.id = this.route.snapshot.paramMap.get('id');
   }
 
-  onSubmit(): void {
-    if (this.projectForm.invalid) {
-      this.projectForm.markAllAsTouched();
-      return;
+  ngOnInit() {
+    const user = JSON.parse(localStorage.getItem('userData') || '{}');
+    this.senderId = user.id;
+    this.teamId = user.teamId;
+  }
+
+  save() {
+    const payload = { teamId: this.teamId, name: this.name, description: this.description };
+    if (!this.id || this.id === '0') {
+      this.projectSvc.createProject(payload).subscribe(() => this.router.navigate(['/projects']));
+    } else {
+      this.projectSvc.updateProject(this.id, payload).subscribe(() => this.router.navigate(['/projects']));
     }
-
-    const formData = {
-      ...this.projectForm.value,
-      userId: this.authService.getUserDetails()?.id
-    };
-
-    this.projectService.createProject(formData).subscribe({
-      next: (response) => {
-        if (response.success) {
-          this.router.navigate(['/projects/projects']);
-        } else {
-          this.error = response.message
-        }
-
-      },
-      error: (error) => {
-        console.error('Error creating project:', error);
-      }
-    });
   }
 }

@@ -1,0 +1,14 @@
+<div class="board">
+  <section cdkDropList [cdkDropListData]="todo" (cdkDropListDropped)="drop($event, 'todo')" class="col">
+    <h3>To Do</h3>
+    <div *ngFor="let t of todo" cdkDrag class="card">{{t.title}}</div>
+  </section>
+  <section cdkDropList [cdkDropListData]="inProgress" (cdkDropListDropped)="drop($event, 'in-progress')" class="col">
+    <h3>In Progress</h3>
+    <div *ngFor="let t of inProgress" cdkDrag class="card">{{t.title}}</div>
+  </section>
+  <section cdkDropList [cdkDropListData]="done" (cdkDropListDropped)="drop($event, 'done')" class="col">
+    <h3>Done</h3>
+    <div *ngFor="let t of done" cdkDrag class="card">{{t.title}}</div>
+  </section>
+</div>

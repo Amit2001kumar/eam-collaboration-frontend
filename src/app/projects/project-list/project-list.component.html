@@ -1,70 +1,16 @@
-<div class="project-list-container">
-  <div class="header d-flex justify-content-between align-items-center mb-3">
-    <h2>Project List</h2>
-    <button class="btn btn-primary" *ngIf="isAdmin" (click)="addProject()">+ Add Project</button>
-  </div>
-
-  <div class="filters row mb-3">
-    <div class="col-md-3">
-      <label>Status</label>
-      <select class="form-control" [(ngModel)]="filters.status" (change)="applyFilters()">
-        <option value="">All</option>
-        <option value="open">Open</option>
-        <option value="in-progress">In Progress</option>
-        <option value="closed">Closed</option>
-      </select>
+<div class="header">
+  <h2>Projects</h2>
+  <button (click)="create()">Create Project</button>
+</div>
+<div class="list">
+  <div class="item" *ngFor="let p of projects">
+    <div class="meta">
+      <h3>{{p.name}}</h3>
+      <p>{{p.description}}</p>
     </div>
-
-    <div class="col-md-3">
-      <label>Team Member</label>
-      <select class="form-control" [(ngModel)]="filters.teamMember" (change)="applyFilters()">
-        <option value="">All</option>
-        <option *ngFor="let member of teamMembers" [value]="member">{{ member }}</option>
-      </select>
+    <div class="actions">
+      <a [routerLink]="['/projects', (p.id || p._id), 'kanban']">Kanban</a>
+      <button (click)="edit(p)">Edit</button>
     </div>
-
-    <div class="col-md-3">
-      <label>Due Date</label>
-      <input type="date" class="form-control" [(ngModel)]="filters.dueDate" (change)="applyFilters()" />
-    </div>
-
-    <div class="col-md-3 d-flex align-items-end">
-      <button class="btn btn-secondary me-2" (click)="clearFilters()">Clear</button>
-    </div>
-  </div>
-
-  <div *ngIf="projects.length === 0">
-    <p>No projects available.</p>
-  </div>
-
-  <div *ngIf="projects.length > 0">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Project Name</th>
-          <th>Description</th>
-          <th>Start Date</th>
-          <th>Due Date</th>
-          <th>Status</th>
-          <th>Team Member</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let project of projects">
-          <td>{{ project.name }}</td>
-          <td>{{ project.description }}</td>
-          <td>{{ project.startDate | date: 'yyyy-MM-dd' }}</td>
-          <td>{{ project.dueDate | date: 'yyyy-MM-dd' }}</td>
-          <td>{{ project.status }}</td>
-          <td>{{ project.teamMember || 'N/A' }}</td>
-          <td>
-            <button class="btn btn-sm btn-info" (click)="viewProject(project.id)">View</button>&nbsp;&nbsp;
-            <button *ngIf="isAdmin" class="btn btn-sm btn-warning" (click)="editProject(project.id)">Edit</button>&nbsp;&nbsp;
-            <button *ngIf="isAdmin" class="btn btn-sm btn-danger" (click)="deleteProject(project.id)">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 </div>
