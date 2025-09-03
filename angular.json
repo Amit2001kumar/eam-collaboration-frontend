@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "eam-collaboration-frontend": {
+    "team-collab": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -58,10 +58,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "eam-collaboration-frontend:build:production"
+              "buildTarget": "team-collab:build:production"
             },
             "development": {
-              "buildTarget": "eam-collaboration-frontend:build:development"
+              "buildTarget": "team-collab:build:development"
             }
           },
           "defaultConfiguration": "development"

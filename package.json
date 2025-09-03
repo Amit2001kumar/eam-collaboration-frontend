@@ -1,5 +1,5 @@
 {
-  "name": "eam-collaboration-frontend",
+  "name": "team-collab",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:eam-collaboration-frontend": "node dist/eam-collaboration-frontend/server/server.mjs"
+    "serve:ssr:team-collab": "node dist/team-collab/server/server.mjs"
   },
   "prettier": {
     "printWidth": 100,
